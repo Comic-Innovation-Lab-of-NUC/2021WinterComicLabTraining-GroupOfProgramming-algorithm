@@ -1,0 +1,89 @@
+#include<stdio.h>
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    int w[7] = {0};
+    int win = 0;
+    int year = 1900, month, day;
+    for(; year < 1900 + n; ++year){
+        for(month = 1; month < 13; ++month){
+            if(month == 4 || month == 6 || month == 9 || month == 11){
+                for(day = 1; day <= 30; ++day){
+                    win++;
+                    win = win % 7;
+                    if(day == 13){
+                        w[win]++;
+                    }
+                }
+            }else if(month == 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)){
+                for(day = 1; day <= 29; ++day){
+                    win++;
+                    win = win % 7;
+                    if(day == 13){
+                        w[win]++;
+                    }
+                }
+            }else if(month == 2){
+                for(day = 1; day <= 28; ++day){
+                    win++;
+                    win = win % 7;
+                    if(day == 13){
+                        w[win]++;
+                    }
+                }
+            }else{
+                for(day = 1; day <= 31; ++day){
+                    win++;
+                    win = win % 7;
+                    if(day == 13){
+                        w[win]++;
+                    }
+                }
+            }
+        }
+    }
+    printf("%d ", w[6]);
+    for(int i  = 0; i < 6; ++i){
+       printf("%d ", w[i]);
+    }
+    return 0;
+}
+
+// 按月来判定
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+int month[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};  // 打表
+int weekday[7];
+
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    int days = 0;
+    for (int year = 1900; year < 1900 + n; year ++ )
+    {
+        for (int i = 1; i <= 12; i ++ )
+        {
+            weekday[(days + 12) % 7] ++ ;
+            days += month[i];
+            if (i == 2)
+            {
+                if (year % 100 && year % 4 == 0 || year % 400 == 0)
+                    days ++ ;
+            }
+        }
+    }
+
+    for (int i = 5, j = 0; j < 7; i = (i + 1) % 7, j ++ )
+        cout << weekday[i] << ' ';
+    cout << endl;
+
+    return 0;
+}

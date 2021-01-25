@@ -1,0 +1,43 @@
+#include<stdio.h>
+typedef struct stu{
+    int yuwen;
+    int bianhao;
+    int zongfen;
+}stu;
+int n;
+stu s[1000];
+int main()
+{
+    scanf("%d", &n);
+    for(int i = 1; i <= n; ++i){
+        int shuxue, yyu;
+        scanf("%d%d%d",&s[i].yuwen,&shuxue,&yyu);
+        s[i].zongfen = s[i].yuwen + shuxue + yyu;
+        s[i].bianhao = i;
+    }
+    for(int i = 1; i <= 5; ++i){
+        for(int j = i + 1; j <= n; ++j){
+            if(s[i].zongfen < s[j].zongfen){
+                stu st = s[i];
+                s[i] = s[j];
+                s[j] = st;
+            }else if(s[i].zongfen == s[j].zongfen){
+                if(s[i].yuwen < s[j].yuwen){
+                    stu st = s[i];
+                    s[i] = s[j];
+                    s[j] = st;
+                }else if(s[i].yuwen == s[j].yuwen){
+                    if(s[i].bianhao > s[j].bianhao){
+                        stu st = s[i];
+                        s[i] = s[j];
+                        s[j] = st;
+                    }
+                }
+            }
+        }
+    }
+    for(int i = 1; i <= 5; ++i){
+        printf("%d %d\n",s[i].bianhao,s[i].zongfen);
+    }
+    return 0;
+}

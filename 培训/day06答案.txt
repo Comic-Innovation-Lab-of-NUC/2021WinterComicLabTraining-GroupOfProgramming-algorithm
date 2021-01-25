@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+int b;
+typedef struct stack{
+    char number[100];
+    int top = 0;
+}stack;
+int main()
+{
+    cin >> b;
+    for(int i = 1; i <= 300; ++i) {
+        int j = i * i;
+        stack s;
+        while (j) {
+            if ((j % b) < 10) {
+                s.number[s.top] = char('0' + (j % b));
+                s.top++;
+            }else{
+                s.number[s.top] = char(((j % b) - 10) + 'A');
+                s.top++;
+            }
+            j = j / b;
+        }
+        int flag = 0;
+        for(int l = s.top - 1, k = 0; k < l; l--, k++){
+            if(s.number[l] != s.number[k]){
+                flag = 1;
+                break;
+            }
+        }
+        stack m;
+        int x = i;
+        if(flag == 0){
+            while(x){
+                if ((x % b) < 10) {
+                    m.number[m.top] = char('0' + (x % b));
+                    m.top++;
+                }else{
+                    m.number[m.top] = char(((x % b) - 10) + 'A');
+                    m.top++;
+                }
+                x = x / b;
+            }
+            for(int l = m.top - 1; l >= 0; --l){
+                cout << m.number[l];
+            }
+            cout << " ";
+            for(int l = s.top - 1; l >= 0; --l){
+                cout << s.number[l];
+            }
+            cout << endl;
+        }
+    }
+    return 0;
+}

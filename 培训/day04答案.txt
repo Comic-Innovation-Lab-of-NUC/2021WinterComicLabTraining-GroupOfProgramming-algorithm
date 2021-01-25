@@ -1,0 +1,43 @@
+#include <stdio.h>
+int main()
+{
+	int n,m,i,j,s[100][100];
+	scanf("%d %d",&n,&m);
+	s[0][0]=1;
+	int left = 0, right = m- 1;
+    int top = 0, bottom = n - 1;
+    int k = 1;
+    while(left <= right || top <= bottom)
+    {
+        for(int i = left; i <= right && top <= bottom; i++)
+        {
+            s[top][i] = k++;
+        }
+        top++;
+        for(int i = top; i <= bottom && left <= right; i++)
+        {
+            s[i][right] = k++;
+        }
+        right--;
+        for(int i = right; i >= left && top <= bottom; i--)
+        {
+            s[bottom][i] = k++;
+        }
+        bottom--;
+        for(int i = bottom; i >= top && left <= right; i--)
+        {
+            s[i][left] = k++;
+        }
+        left++;
+    }
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			printf("%d ",s[i][j]);
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
